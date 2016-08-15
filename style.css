@@ -1,20 +1,54 @@
 body{
 	font-family: verdana;
+	background-color:#1a1a1a;
+}
+
+a{
+	color:white;
 }
 
 #result{
-	height: 200px;
-	border: 1px solid #ccc;
-	padding: 10px;
-	box-shadow: 0 0 10px 0 #bbb;
-	margin-bottom: 30px;
-	font-size: 14px;
-	line-height: 25px;
+	color:white;
 }
 
 button{
 	font-size: 20px;
 	position: absolute;
-	top: 240px;
-	left: 50%;
+	top: 90%;
+	left: 90%;
+}
+
+.pulse-ring {
+  width: 150px;
+  height: 150px;
+  border: 10px solid blue;
+  border-radius: 100%;
+  animation: pulsate infinite 5s;
+}
+
+.circle {
+	width: 50px;
+	height: 50px;
+	position:absolute;
+	top:32.5%;
+	left:32.5%;
+	background: blue;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(0.5, 0.5);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+    opacity: 0.2;
+  }
+  100% {
+    -webkit-transform: scale(0.5, 0.5);
+    opacity: 1;
+  }
 }
