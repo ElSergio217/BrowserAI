@@ -1,13 +1,39 @@
 body{
 	font-family: verdana;
 	background-color:#1a1a1a;
-}
-
-a{
+	margin:0;
 	color:white;
 }
 
 #result{
+	text-align:center;
+	width:50%;
+	color:white;
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:#1a1a1a;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+	text-align:center;
+	display:inline block;
+}
+
+li {
+    display:inline-block;
+}
+
+li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 	color:white;
 }
 
@@ -18,37 +44,49 @@ button{
 	left: 90%;
 }
 
-.pulse-ring {
+.ring {
   width: 150px;
   height: 150px;
-  border: 10px solid blue;
+  border: 5px solid #00a8e1;
   border-radius: 100%;
-  animation: pulsate infinite 5s;
+  margin-top:15px;
 }
 
 .circle {
-	width: 50px;
-	height: 50px;
-	position:absolute;
-	top:32.5%;
-	left:32.5%;
-	background: blue;
+	width: 25px;
+	height: 25px;
+	background: #00a8e1;
 	-moz-border-radius: 50px;
 	-webkit-border-radius: 50px;
 	border-radius: 50px;
+	transform: translate(0px, -15px);
+}
+
+.pulse {
+	width: 25px;
+	height: 25px;
+	position:relative;
+	top:22.5%;
+	background: #00a8e1;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	animation: pulsate infinite 5s;
+}
+
+#status{
+	color:white;
+	text-align:center;
 }
 
 @-webkit-keyframes pulsate {
   0% {
-    -webkit-transform: scale(0.5, 0.5);
-    opacity: 1;
+    -webkit-transform: scale(1, 1);
   }
   50% {
-    -webkit-transform: scale(1, 1);
-    opacity: 0.2;
+    -webkit-transform: scale(2, 2);
   }
   100% {
-    -webkit-transform: scale(0.5, 0.5);
-    opacity: 1;
+    -webkit-transform: scale(1, 1);
   }
 }

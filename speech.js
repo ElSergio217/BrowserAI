@@ -9,11 +9,25 @@ msg.pitch = 2; //0 to 2
 msg.text = '';
 msg.lang = 'en-US';
 
+
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+        startConverting();
+    }
+}
+
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	document.getElementById('result').innerHTML= "<h2>Sorry, Dr.Manhattan is not avalible on mobile browsers.</h2>";
+	document.getElementById('tip').innerHTML= "";
+}
+
 function startConverting () {
 	
 	if('webkitSpeechRecognition' in window){
 	
 		var finalTranscripts = '';
+		document.getElementById('status').innerHTML='Listening...';
+		r.innerHTML="";
 	
 		var speechRecognizer = new webkitSpeechRecognition();
 		speechRecognizer.continuous = true;
@@ -28,9 +42,10 @@ function startConverting () {
 				transcript.replace("\n", "<br>");
 				if(event.results[i].isFinal){
 					finalTranscripts = transcript;
+					document.getElementById('status').innerHTML='';
 				}
 			}
-			r.innerHTML = finalTranscripts;
+			//r.innerHTML = finalTranscripts;
 
 			//Open Website
 			if(finalTranscripts.startsWith("open")){
@@ -39,6 +54,7 @@ function startConverting () {
 				msg.text="opening " + site;
 				speechSynthesis.speak(msg);
 				r.innerHTML="Opening " + site;
+				mixpanel.track("Website Opened",{"Website":site});
 				finalTranscripts="";
 			}
 			
@@ -71,17 +87,19 @@ function startConverting () {
 				msg.text="Searching for " + search;
 				speechSynthesis.speak(msg);
 				r.innerHTML="Searching for " + search;
+				mixpanel.track("Google Searches",{"Searches":search});
 				finalTranscripts="";
 			}
 			
 			//Post a tweet
 			if(finalTranscripts.startsWith("post on Twitter ")){
 				var tweet = finalTranscripts.replace("post on Twitter ", "");
-				var urlTweet = tweet.replace(" ", "%20") 
+				var urlTweet = tweet.replace(" ", "%20").replace(tweet[0],tweet[0].toUpperCase()); 
 				window.open( "https://twitter.com/home?status=" + urlTweet + ".%20Tweet%20posted%20from%20%23ProjectBravoAI%3A%20%40elsergio217",'_blank');
 				msg.text="please confirm your tweet.";
 				speechSynthesis.speak(msg);
 				r.innerHTML="Please confirm your tweet."
+				mixpanel.track("Twitter Post",{"tweet":tweet});
 				finalTranscripts="";
 			}	
 
@@ -93,9 +111,10 @@ function startConverting () {
 				xmlhttp.onreadystatechange = function() {
 					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 						var myArr = JSON.parse(xmlhttp.responseText);
-						r.innerHTML="<h3>" + def.replace(def[0],def[0].toUpperCase()) + ": </h3>" + myArr[0]["text"];
+						r.innerHTML="<h3>" + def.replace(def[0],def[0].toUpperCase()) + "</h3>" + myArr[0]["text"];
 						msg.text=myArr[0]["text"];
 						speechSynthesis.speak(msg);
+						mixpanel.track("Word Define",{"word":def});
 					}
 				};
 				xmlhttp.open("GET", url, true);
@@ -118,8 +137,9 @@ function startConverting () {
 						var condition= myArr["forecast"]["simpleforecast"]["forecastday"][0]["conditions"];
 						var temp= myArr["forecast"]["simpleforecast"]["forecastday"][0]["high"]["fahrenheit"];
 						msg.text= temp + " fahrenheit and " + condition;
-						r.innerHTML=temp + "F and " + condition; 
+						r.innerHTML="<img src='"+ myArr["forecast"]["simpleforecast"]["forecastday"][0]["icon_url"] +"'><br>" + temp + "F and " + condition; 
 						speechSynthesis.speak(msg);
+						mixpanel.track("Weather",{"condition":condition});
 					}
 				};
 				xmlhttp.open("GET", url, true);
@@ -143,6 +163,7 @@ function startConverting () {
 						r.innerHTML=out;
 						msg.text= "Here are the global news";
 						speechSynthesis.speak(msg);
+						mixpanel.track("News");
 					}
 				};
 				xmlhttp.open("GET", url, true);
