@@ -16,6 +16,8 @@ document.body.onkeyup = function(e){
     }
 }
 
+mixpanel.track("Visits");
+
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 	document.getElementById('result').innerHTML= "<h2>Sorry, Dr.Manhattan is not avalible on mobile browsers.</h2>";
 	document.getElementById('tip').innerHTML= "";
