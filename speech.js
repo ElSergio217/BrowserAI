@@ -97,7 +97,7 @@ function startConverting () {
 			if(finalTranscripts.startsWith("post on Twitter ")){
 				var tweet = finalTranscripts.replace("post on Twitter ", "");
 				var urlTweet = tweet.replace(" ", "%20").replace(tweet[0],tweet[0].toUpperCase()); 
-				window.open( "https://twitter.com/home?status=" + urlTweet + ".%20Tweet%20posted%20from%20%23ProjectBravoAI%3A%20%40elsergio217",'_blank');
+				window.open( "https://twitter.com/home?status=" + urlTweet + ".%20Tweet%20posted%20from%20%23Dr.ManhattanAI%3A%20%40elsergio217",'_blank');
 				msg.text="please confirm your tweet.";
 				speechSynthesis.speak(msg);
 				r.innerHTML="Please confirm your tweet."
