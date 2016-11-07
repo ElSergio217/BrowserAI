@@ -109,7 +109,7 @@ function startConverting () {
 			if(finalTranscripts.startsWith("Define ")||finalTranscripts.startsWith("define ")){
 				var def = finalTranscripts.replace("Define ", "").replace("define ", "");
 				var xmlhttp = new XMLHttpRequest();
-				var url = "http://api.wordnik.com/v4/word.json/" + def + "/definitions?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+				var url = "https://api.wordnik.com/v4/word.json/" + def + "/definitions?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
 				xmlhttp.onreadystatechange = function() {
 					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 						var myArr = JSON.parse(xmlhttp.responseText);
