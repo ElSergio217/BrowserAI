@@ -4,7 +4,7 @@ var voices = window.speechSynthesis.getVoices();
 msg.voice = voices[10]; // Note: some voices don't support altering params
 msg.voiceURI = 'native';
 msg.volume = 1; // 0 to 1
-msg.rate = 1.5; // 0.1 to 10
+msg.rate = 1; // 0.1 to 10
 msg.pitch = 2; //0 to 2
 msg.text = '';
 msg.lang = 'en-US';
@@ -22,12 +22,13 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 	document.getElementById('result').innerHTML= "<h2>Sorry, Dr.Manhattan is not avalible on mobile browsers.</h2>";
 	document.getElementById('tip').innerHTML= "";
 }
-
+		var finalTranscripts = '';
+		startConverting ();
+		
 function startConverting () {
 	
 	if('webkitSpeechRecognition' in window){
 	
-		var finalTranscripts = '';
 		document.getElementById('status').innerHTML='Listening...';
 		r.innerHTML="";
 	
@@ -45,11 +46,28 @@ function startConverting () {
 				if(event.results[i].isFinal){
 					finalTranscripts = transcript;
 					document.getElementById('status').innerHTML='';
+					Recog();
+					startConverting ();
 				}
 			}
-			//r.innerHTML = finalTranscripts;
+			//r.innerHTML = finalTranscripts;	
+				
+		speechRecognizer.onerror = function (event) {
+			
+		};
+	}
+	}				
+	else{
+		r.innerHTML = 'Your browser is not supported. If google chrome, please upgrade!';
+	}
 
-			//Open Website
+}
+
+
+
+
+function Recog(){
+				//Open Website
 			if(finalTranscripts.startsWith("open")){
 				var site = finalTranscripts.replace("open ", "");
 				window.open("http://" + site + ".com",'_blank');
@@ -173,14 +191,4 @@ function startConverting () {
 				finalTranscripts="";
 				}
 			}			
-		
-				
-		speechRecognizer.onerror = function (event) {
-			
-		};
-	}
-				
-	else{
-		r.innerHTML = 'Your browser is not supported. If google chrome, please upgrade!';
-	}
-}
+
