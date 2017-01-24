@@ -23,7 +23,6 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 	document.getElementById('tip').innerHTML= "";
 }
 		var finalTranscripts = '';
-		startConverting ();
 		
 function startConverting () {
 	
@@ -47,7 +46,6 @@ function startConverting () {
 					finalTranscripts = transcript;
 					document.getElementById('status').innerHTML='';
 					Recog();
-					startConverting ();
 				}
 			}
 			//r.innerHTML = finalTranscripts;	
